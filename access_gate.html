@@ -144,14 +144,14 @@
             // Define allowed variations (losangeles, los, la)
             if (inputValue === correctKey || inputValue === 'los' || inputValue === 'la') {
                 // SUCCESS MESSAGE
-                const finalLink = '[YOUR FINAL GOOGLE DOC LINK]'; // *** REMEMBER TO REPLACE THIS ***
+                const finalLink = '[https://docs.google.com/document/d/1szRInEJcepjW6C0Ux37-LxG_FXjk7NnKbFLiJygrqm8/edit?usp=sharing]'; 
                 
                 outputElement.classList.remove('output-error', 'hidden');
                 outputElement.classList.add('output-success');
                 outputElement.innerHTML = `[ACCESS GRANTED]
 PROTOCOL: OBSERVER. TIME.
 
-The Archive is recovered. Lyra Caellum's final note is now accessible. 
+The Archive is recovered. Lyra Caellum's note is now accessible. 
 The remaining variables are hidden within the document's structure and image caption.
 
 PROCEED TO ARCHIVE: 
@@ -176,3 +176,4 @@ Temporal Purge Protocol initiated. Retry immediately.`;
 
 </body>
 </html>
+
