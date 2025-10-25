@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temporal Access Gate - Chronarchy Denial Matrix</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d0c0c; /* Near-black background */
+            color: #d1d5db; /* Light gray text */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .gate-container {
+            background-color: #1a1a1a;
+            border: 2px solid #6B011D; /* Eon Decay Hex for validation hint */
+            box-shadow: 0 0 25px #6B011D99;
+            max-width: 420px;
+            width: 95%;
+            padding: 30px;
+            border-radius: 12px;
+            transition: all 0.3s ease-in-out;
+        }
+        .chronarchy-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fca5a5; /* Light red/pink to signify Chronarchy denial */
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .chronarchy-logo::before {
+            content: "█ DENIAL MATRIX █";
+        }
+        .terminal-input {
+            background-color: #2c2c2c;
+            border: 1px solid #4a4a4a;
+            color: #10b981; /* Green text for terminal feel */
+            padding: 12px;
+            border-radius: 6px;
+            font-family: monospace;
+            width: 100%;
+            margin-top: 8px;
+            box-sizing: border-box;
+        }
+        .terminal-button {
+            background-color: #6B011D;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 15px;
+            width: 100%;
+        }
+        .terminal-button:hover {
+            background-color: #8c0228;
+        }
+        .output-message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 6px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        .output-error {
+            background-color: #3f1d24;
+            color: #ef4444; /* Red for error */
+        }
+        .output-success {
+            background-color: #14372e;
+            color: #10b981; /* Green for success */
+        }
+        /* Custom link styling for the clue */
+        .clue-link {
+            color: #3b82f6; /* Blue link */
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gate-container">
+        <div class="chronarchy-logo"></div>
+        
+        <p class="text-xs text-center text-gray-400 mb-4">
+            // Accessing Temporal Protocol Sub-Node 54.21.08.97
+            <br>
+            // Geo-Lock Engaged: Verification Required, Enter the correct location
+        </p>
+
+        <label for="key-input" class="block text-sm font-medium text-gray-300">
+            Enter Anomaly Origin Key:
+        </label>
+        <input type="text" id="key-input" class="terminal-input" placeholder="e.g., [CITYNAME]">
+
+        <button id="validate-button" class="terminal-button">
+            VALIDATE KEY (INITIATE CHECK)
+        </button>
+
+        <div id="output" class="output-message hidden"></div>
+    </div>
+
+    <script>
+        document.getElementById('validate-button').addEventListener('click', validateKey);
+        
+        // Listen for Enter key press on the input field
+        document.getElementById('key-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                validateKey();
+            }
+        });
+
+        function validateKey() {
+            const inputElement = document.getElementById('key-input');
+            const outputElement = document.getElementById('output');
+            const inputValue = inputElement.value.toLowerCase().trim().replace(/\s/g, ''); // Standardize input
+
+            // ----------------------------------------------------
+            // CORE CLUE LOGIC: The password is Base64 encoded.
+            // Player must view the source and decode the string.
+            // The encoded key is 'losangeles'
+            const loc = 'bG9zYW5nZWxlcw=='; 
+            
+            // Function to decode Base64 (needed for comparison)
+            function decodeBase64(s) {
+                // Since this runs in a browser environment, we use atob() 
+                // Error handling is necessary for malicious/unexpected input
+                try {
+                    return atob(s); 
+                } catch (e) {
+                    return ''; 
+                }
+            }
+
+            const correctKey = decodeBase64(loc); 
+            // ----------------------------------------------------
+
+            // Define allowed variations (losangeles, los, la)
+            if (inputValue === correctKey || inputValue === 'los' || inputValue === 'la') {
+                // SUCCESS MESSAGE
+                const finalLink = '[YOUR FINAL GOOGLE DOC LINK]'; // *** REMEMBER TO REPLACE THIS ***
+                
+                outputElement.classList.remove('output-error', 'hidden');
+                outputElement.classList.add('output-success');
+                outputElement.innerHTML = `[ACCESS GRANTED]
+PROTOCOL: OBSERVER. TIME.
+
+The Archive is recovered. Lyra Caellum's final note is now accessible. 
+The remaining variables are hidden within the document's structure and image caption.
+
+PROCEED TO ARCHIVE: 
+<a href="${finalLink}" target="_blank" class="clue-link">Final Lyra Caellum Archive Note</a>`;
+
+                // Disable input after successful entry
+                inputElement.disabled = true;
+                document.getElementById('validate-button').disabled = true;
+
+            } else {
+                // FAILURE MESSAGE
+                outputElement.classList.remove('output-success', 'hidden');
+                outputElement.classList.add('output-error');
+                outputElement.innerHTML = `[DENIAL CODE: 401] 
+ERROR: INCORRECT KEY. ANOMALY ORIGIN UNCONFIRMED.
+Temporal Purge Protocol initiated. Retry immediately.`;
+            }
+
+            outputElement.classList.remove('hidden');
+        }
+    </script>
+
+</body>
+</html>
